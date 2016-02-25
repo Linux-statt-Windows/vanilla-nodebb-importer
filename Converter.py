@@ -31,7 +31,7 @@ userDiscussionMap = UserDiscussionMap()
 userTagMap = UserTagMap()
 
 conversationMap = ConversationMap()
-conversationMessageMap = conversationMessageMap
+conversationMessageMap = ConversationMessageMap
 userConversationMap = UserConversationMap()
 
 
@@ -40,26 +40,26 @@ userConversationMap = UserConversationMap()
 '''
 @description
     Check the length of the passed parameter list.
-    If the length is correct, assign the parameter list and start the conversion.
+    If the length is correct, assign the parameter list.
 @todo:
-    Check the single parameter correctness
+    Check the single parameter correctness.
 '''
 def init():
 
     if (len(sys.argv) != 10):
         print("\n\n\n\033[41m")
-        print("\033[1;4;37mUpps, something is going wrong !!!\033[24m\n")
-        print("Please start the script with indication of the complete parameter list and the correct order.")
+        print("\033[1;4;37mOops, something is going wrong !!!\033[24m\n")
+        print("Please start the script with a complete set of parameters (consider the correct order.")
         print("\033[32m./Converter.py <parameter 1 - 9>\033[37;22m\n")
         print("Parameter 1: Redis host")
         print("Parameter 2: Redis port")
         print("Parameter 3: Redis DB number")
-        print("Parameter 4: Redis password. Type \'null\' if there isn't a password.")
+        print("Parameter 4: Redis password. Type \'null\' if none.")
         print("Parameter 5: MySQL host")
         print("Parameter 6: MySQL port")
-        print("Parameter 7: MySQL data base. \033[1;4;37mMake shure, that the data base doesn't exist.\033[22;24m")
+        print("Parameter 7: MySQL database. \033[1;4;37mMake sure, that the database doesn't exist.\033[22;24m")
         print("Parameter 8: MySQL user")
-        print("Parameter 9: MySQL password. Type \'null\' if there isn't a password.\n\033[0m\n")
+        print("Parameter 9: MySQL password. Type \'null\' if none.\n\033[0m\n")
         sys.exit(1)
 
     else:

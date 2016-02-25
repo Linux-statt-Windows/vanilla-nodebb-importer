@@ -1,6 +1,8 @@
 '''
-
+@description
+    Datamodels with members which we'll extract and convert
 '''
+
 class DataBases:
     def __init__(self):
         self.redisHost = ''

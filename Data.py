@@ -1,71 +1,9 @@
 '''
 @description
-    Datamodels with members which we'll extract and convert
+    Data models with members which we'll extract and convert
 '''
 
-class DataBases:
-    def __init__(self):
-        self.redisHost = ''
-        self.redisPort = ''
-        self.redisDbNumber = ''
-        self.redisPassword = ''
-        self.mysqlHost = ''
-        self.mysqlPort = ''
-        self.mysqlDataBase = ''
-        self.mysqlUser = ''
-        self.mysqlPassword = ''
 
-    def getRedisHost(self):
-        return self.redisHost
-    def setRedisHost(self, redisHost):
-        self.redisHost = redisHost
-
-    def getRedisPort(self):
-        return self.redisPort
-    def setRedisPort(self, redisPort):
-        self.redisPort = redisPort
-
-    def getRedisDbNumber(self):
-        return self.redisDbNumber
-    def setRedisDbNumber(self, redisDbNumber):
-        self.redisDbNumber = redisDbNumber
-
-    def getRedisPassword(self):
-        return self.redisPassword
-    def setRedisPassword(self, redisPassword):
-        self.redisPassword = redisPassword
-
-    def getMysqlHost(self):
-        return self.mysqlHost
-    def setMysqlHost(self, mysqlHost):
-        self.mysqlHost = mysqlHost
-
-    def getMysqlPort(self):
-        return self.mysqlPort
-    def setMysqlPort(self, mysqlPort):
-        self.mysqlPort = mysqlPort
-
-    def getMysqlDataBase(self):
-        return self.mysqlDataBase
-    def setMysqlDataBase(self, mysqlDataBase):
-        self.mysqlDataBase = mysqlDataBase
-
-    def getMysqlUser(self):
-        return self.mysqlUser
-    def setMysqlUser(self, mysqlUser):
-        self.mysqlUser = mysqlUser
-
-    def getMysqlPassword(self):
-        return self.mysqlPassword
-    def setMysqlPassword(self, mysqlPassword):
-        self.mysqlPassword = mysqlPassword
-
-
-
-
-'''
-
-'''
 class UserMap:
     def __init__(self):
         self.uid = ''

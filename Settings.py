@@ -31,23 +31,23 @@ class Settings:
 
     def __init__(self):
 
-        self.nodeBBMachineIP            = None
-        self.nodeBBMachineUser          = None
-        self.nodeBBMachinePassword      = None
-        self.nodeBBMachineDecodeString  = None
-        self.vanillaMachineIP           = None
-        self.vanillaMachineUser         = None
-        self.vanillaMachinePassword     = None
-        self.vanillaMachineDecodeString = None
-        self.redisHost                  = None
-        self.redisPort                  = None
-        self.redisDB                    = None
-        self.redisPassword              = None
-        self.mySqlHost                  = None
-        self.mySqlPort                  = None
-        self.mySqlDataBase              = None
-        self.mySqlUser                  = None
-        self.mySqlPassword              = None
+        self.__nodeBBMachineIP            = None
+        self.__nodeBBMachineUser          = None
+        self.__nodeBBMachinePassword      = None
+        self.__nodeBBMachineDecodeString  = None
+        self.__vanillaMachineIP           = None
+        self.__vanillaMachineUser         = None
+        self.__vanillaMachinePassword     = None
+        self.__vanillaMachineDecodeString = None
+        self.__redisHost                  = None
+        self.__redisPort                  = None
+        self.__redisDB                    = None
+        self.__redisPassword              = None
+        self.__mySqlHost                  = None
+        self.__mySqlPort                  = None
+        self.__mySqlDataBase              = None
+        self.__mySqlUser                  = None
+        self.__mySqlPassword              = None
 
 
 
@@ -98,7 +98,7 @@ class Settings:
                     The NodeBB machine IP4-Address or 'localhost'.
         """
 
-        return self.nodeBBMachineIP
+        return self.__nodeBBMachineIP
 
 
 
@@ -115,7 +115,7 @@ class Settings:
         """
 
         if (True if (type(ip) == str and self.__checkInput(ip, 'ip')) else False):
-            self.nodeBBMachineIP = ip
+            self.__nodeBBMachineIP = ip
             return True
         else:
             return False
@@ -131,7 +131,7 @@ class Settings:
                     The NodeBB machine username.
         """
 
-        return self.nodeBBMachineUser
+        return self.__nodeBBMachineUser
 
 
 
@@ -148,7 +148,7 @@ class Settings:
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
-            self.nodeBBMachineUser = user
+            self.__nodeBBMachineUser = user
             return True
         else:
             return False
@@ -164,7 +164,7 @@ class Settings:
                     The NodeBB machine password.
         """
 
-        return self.nodeBBMachinePassword
+        return self.__nodeBBMachinePassword
 
 
 
@@ -181,7 +181,7 @@ class Settings:
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.nodeBBMachinePassword = password
+            self.__nodeBBMachinePassword = password
             return True
         else:
             return False
@@ -197,7 +197,7 @@ class Settings:
                     The NodeBB machine decode string.
         """
 
-        return self.nodeBBMachineDecodeString
+        return self.__nodeBBMachineDecodeString
 
 
 
@@ -216,7 +216,7 @@ class Settings:
         if (True if (type(decodeString) == str and self.__checkInput(decodeString, 'decodeString')) else False):
                 try:
                     with open(decodeString, 'r') as decodeStringFile:
-                        self.nodeBBMachineDecodeString = decodeStringFile.read().replace('\n', '')
+                        self.__nodeBBMachineDecodeString = decodeStringFile.read().replace('\n', '')
                     return True
                 except IOError:
                     return False
@@ -234,7 +234,7 @@ class Settings:
                     The Vanilla machine IP4-Address or 'localhost'.
         """
 
-        return self.vanillaMachineIP
+        return self.__vanillaMachineIP
 
 
 
@@ -251,7 +251,7 @@ class Settings:
         """
 
         if (True if (type(ip) == str and self.__checkInput(ip, 'ip')) else False):
-            self.vanillaMachineIP = ip
+            self.__vanillaMachineIP = ip
             return True
         else:
             return False
@@ -267,7 +267,7 @@ class Settings:
                     The Vanilla machine username.
         """
 
-        return self.vanillaMachineUser
+        return self.__vanillaMachineUser
 
 
 
@@ -284,7 +284,7 @@ class Settings:
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
-            self.vanillaMachineUser = user
+            self.__vanillaMachineUser = user
             return True
         else:
             return False
@@ -300,7 +300,7 @@ class Settings:
                     The Vanilla machine password.
         """
 
-        return self.vanillaMachinePassword
+        return self.__vanillaMachinePassword
 
 
 
@@ -317,7 +317,7 @@ class Settings:
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.vanillaMachinePassword = password
+            self.__vanillaMachinePassword = password
             return True
         else:
             return False
@@ -333,7 +333,7 @@ class Settings:
                     The Vanilla machine decode string.
         """
 
-        return self.vanillaMachineDecodeString
+        return self.__vanillaMachineDecodeString
 
 
 
@@ -352,7 +352,7 @@ class Settings:
         if (True if (type(decodeString) == str and self.__checkInput(decodeString, 'decodeString')) else False):
             try:
                 with open(decodeString, 'r') as decodeStringFile:
-                    self.vanillaMachineDecodeString = decodeStringFile.read().replace('\n', '')
+                    self.__vanillaMachineDecodeString = decodeStringFile.read().replace('\n', '')
                 return True
             except IOError:
                 return False
@@ -370,7 +370,7 @@ class Settings:
                     The Redis database IP4-Address or 'localhost'.
         """
 
-        return self.redisHost
+        return self.__redisHost
 
 
 
@@ -387,7 +387,7 @@ class Settings:
         """
 
         if (True if (type(host) == str and self.__checkInput(host, 'ip')) else False):
-            self.redisHost = host
+            self.__redisHost = host
             return True
         else:
             return False
@@ -403,7 +403,7 @@ class Settings:
                     The Redis port number.
         """
 
-        return self.redisPort
+        return self.__redisPort
 
 
 
@@ -420,7 +420,7 @@ class Settings:
         """
 
         if (True if (type(port) == int and self.__checkInput(port, 'port')) else False):
-            self.redisPort = port
+            self.__redisPort = port
             return True
         else:
             return False
@@ -436,7 +436,7 @@ class Settings:
                     The Redis database number.
         """
 
-        return self.redisDB
+        return self.__redisDB
 
 
 
@@ -453,7 +453,7 @@ class Settings:
         """
 
         if (True if (type(db) == int and self.__checkInput(db, 'db')) else False):
-            self.redisDB = db
+            self.__redisDB = db
             return True
         else:
             return False
@@ -469,7 +469,7 @@ class Settings:
                     The Redis password.
         """
 
-        return self.redisPassword
+        return self.__redisPassword
 
 
 
@@ -486,7 +486,7 @@ class Settings:
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.redisPassword = password
+            self.__redisPassword = password
             return True
         else:
             return False
@@ -501,7 +501,7 @@ class Settings:
         @return     mySqlHost <string>
                     The MySql IP4-Address or 'localhost'
         """
-        return self.mySqlHost
+        return self.__mySqlHost
 
 
 
@@ -518,7 +518,7 @@ class Settings:
         """
 
         if (True if (type(host) == str and self.__checkInput(host, 'ip')) else False):
-            self.mySqlHost = host
+            self.__mySqlHost = host
             return True
         else:
             return False
@@ -534,7 +534,7 @@ class Settings:
                     The MySql port number.
         """
 
-        return self.mySqlPort
+        return self.__mySqlPort
 
 
 
@@ -551,7 +551,7 @@ class Settings:
         """
 
         if (True if (type(port) == int and self.__checkInput(port, 'port')) else False):
-            self.mySqlPort = port
+            self.__mySqlPort = port
             return True
         else:
             return False
@@ -566,7 +566,7 @@ class Settings:
         @return     mySqlDataBase <string>
                     The MySql database name.
         """
-        return self.mySqlDataBase
+        return self.__mySqlDataBase
 
 
 
@@ -583,7 +583,7 @@ class Settings:
         """
 
         if (True if (type(dataBase) == str and self.__checkInput(dataBase, 'dataBase')) else False):
-            self.mySqlDataBase = dataBase
+            self.__mySqlDataBase = dataBase
             return True
         else:
             return False
@@ -599,7 +599,7 @@ class Settings:
                     The MySql username.
         """
 
-        return self.mySqlUser
+        return self.__mySqlUser
 
 
 
@@ -616,7 +616,7 @@ class Settings:
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
-            self.mySqlUser = user
+            self.__mySqlUser = user
             return True
         else:
             return False
@@ -632,7 +632,7 @@ class Settings:
                     The MySql password.
         """
 
-        return self.mySqlPassword
+        return self.__mySqlPassword
 
 
 
@@ -649,7 +649,7 @@ class Settings:
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.mySqlPassword = password
+            self.__mySqlPassword = password
             return True
         else:
             return False

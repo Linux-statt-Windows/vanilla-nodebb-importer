@@ -31,19 +31,19 @@ class Settings:
 
     def __init__(self):
 
-        self.__nodeBBMachineIP            = None
-        self.__nodeBBMachineUser          = None
-        self.__nodeBBMachinePassword      = None
-        self.__nodeBBMachineDecodeString  = None
-        self.__vanillaMachineIP           = None
-        self.__vanillaMachineUser         = None
-        self.__vanillaMachinePassword     = None
-        self.__vanillaMachineDecodeString = None
-        self.__redisHost                  = None
+        self.__nodebbIP                   = None
+        self.__nodebbUser                 = None
+        self.__nodebbPassword             = None
+        self.__nodebbPicPath              = None
+        self.__vanillaIP                  = None
+        self.__vanillaUser                = None
+        self.__vanillaPassword            = None
+        self.__redisIP                    = None
         self.__redisPort                  = None
         self.__redisDB                    = None
         self.__redisPassword              = None
-        self.__mySqlHost                  = None
+        self.__redisPath                  = None
+        self.__mySqlIP                    = None
         self.__mySqlPort                  = None
         self.__mySqlDataBase              = None
         self.__mySqlUser                  = None
@@ -59,11 +59,12 @@ class Settings:
         @param      var <string or integer>
                     The parameter to be validated.
                     Either a string or a integer can be used, depending on the relationship with 'checkType'.
-                    It applies the following relation: 'ip'<string>, 'user'<string>, 'password'<string>, 'decodeString'<string>, 'port'<integer>, 'db'<integer>, 'dataBase'<string>
+                    It applies the following relation: 'ip'<string>, 'user'<string>, 'password'<string>,
+                    'picPath'<string>, 'port'<integer>, 'db'<integer>, 'dataBase'<string>
 
         @param      checkType <string>
                     Type of the parameter to be validated.
-                    Allowed parameters are: 'ip', 'user', 'password', 'decodeString', 'port', 'db' and 'dataBase'
+                    Allowed parameters are: 'ip', 'user', 'password', 'picPath', 'port', 'db' and 'dataBase'
                     Note the relationship to 'var'.
 
         @return     True or False <boolean>
@@ -76,8 +77,8 @@ class Settings:
             return (True if (len(var) <= 20 and re.compile("[A-Za-z]").match(var)) else False)
         elif (checkType == 'password'):
             return (True if (len(var) <= 128) else False)
-        elif (checkType == 'decodeString'):
-            return (True if (re.compile("^(/[A-Za-z.][^/ ]*)+?.pub").match(var)) else False)
+        elif (checkType == 'picPath'):
+            return (True if (re.compile("^(/[A-Za-z.][^/ ]*)+[/]").match(var)) else False)
         elif (checkType == 'port'):
             return (True if (var > 0 and var <= 65535) else False)
         elif (checkType == 'db'):
@@ -90,32 +91,32 @@ class Settings:
 
 
 
-    def getNodeBBMachineIP(self):
+    def getNodebbIP(self):
         """
-        Returns the NodeBB machine IP4-Address or 'localhost'.
+        Returns the NodeBB IP4-Address or 'localhost'.
 
-        @return     nodeBBMachineIP <string>
-                    The NodeBB machine IP4-Address or 'localhost'.
+        @return     nodebbIP <string>
+                    The NodeBB IP4-Address or 'localhost'.
         """
 
-        return self.__nodeBBMachineIP
+        return self.__nodebbIP
 
 
 
 
-    def setNodeBBMachineIP(self, ip):
+    def setNodebbIP(self, ip):
         """
-        Validated and sets the NodeBB machine IP4-Address or 'localhost' and returns the success.
+        Validated and sets the NodeBB IP4-Address or 'localhost' and returns the success.
 
         @param      ip <string>
-                    The NodeBB machine IP4-Address or 'localhost'.
+                    The NodeBB IP4-Address or 'localhost'.
 
         @return     True or False <boolean>
-                    True, if the NodeBB machine IP4-Address or 'localhost' is validated and stored. Otherwise False.
+                    True, if the NodeBB IP4-Address or 'localhost' is validated and stored. Otherwise False.
         """
 
         if (True if (type(ip) == str and self.__checkInput(ip, 'ip')) else False):
-            self.__nodeBBMachineIP = ip
+            self.__nodebbIP = ip
             return True
         else:
             return False
@@ -123,32 +124,32 @@ class Settings:
 
 
 
-    def getNodeBBMachineUser(self):
+    def getNodebbUser(self):
         """
-        Returns the NodeBB machine username.
+        Returns the NodeBB SSH username.
 
-        @return     nodeBBMachineUser <string>
-                    The NodeBB machine username.
+        @return     nodebbUser <string>
+                    The NodeBB SSH username.
         """
 
-        return self.__nodeBBMachineUser
+        return self.__nodebbUser
 
 
 
 
-    def setNodeBBMachineUser(self, user):
+    def setNodebbUser(self, user):
         """
-        Validated and sets the NodeBB machine username and returns the success.
+        Validated and sets the NodeBB SSH username and returns the success.
 
         @param      user <string>
-                    The NodeBB machine username.
+                    The NodeBB SSH username.
 
         @return     True or False <boolean>
-                    True, if the NodeBB machine username is validated and stored. Otherwise False.
+                    True, if the NodeBB SSH username is validated and stored. Otherwise False.
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
-            self.__nodeBBMachineUser = user
+            self.__nodebbUser = user
             return True
         else:
             return False
@@ -156,32 +157,32 @@ class Settings:
 
 
 
-    def getNodeBBMachinePassword(self):
+    def getNodebbPassword(self):
         """
-        Returns the NodeBB machine password.
+        Returns the NodeBB SSH password.
 
-        @return     nodeBBMachinePassword <string>
-                    The NodeBB machine password.
+        @return     nodebbPassword <string>
+                    The NodeBB SSH password.
         """
 
-        return self.__nodeBBMachinePassword
+        return self.__nodebbPassword
 
 
 
 
-    def setNodeBBMachinePassword(self, password):
+    def setNodebbPassword(self, password):
         """
-        Validated and sets the NodeBB machine password and returns the success.
+        Validated and sets the NodeBB SSH password and returns the success.
 
         @param      password <string>
-                    The NodeBB machine password.
+                    The NodeBB SSH password.
 
         @return     True or False <boolean>
-                    True, if the NodeBB machine password is validated and stored. Otherwise False.
+                    True, if the NodeBB SSH password is validated and stored. Otherwise False.
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.__nodeBBMachinePassword = password
+            self.__nodebbPassword = password
             return True
         else:
             return False
@@ -189,69 +190,65 @@ class Settings:
 
 
 
-    def getNodeBBMachineDecodeString(self):
+    def getNodebbPicPath(self, path):
         """
-        Returns the NodeBB machine decode string.
+        Returns the NodeBB path to the profile pictures.
 
-        @return     nodeBBMachineDecodeString <string>
-                    The NodeBB machine decode string.
+        @return     nodebbPicPath <string>
+                    The NodeBB path to the profile pictures.
         """
 
-        return self.__nodeBBMachineDecodeString
+        return self.__nodebbPicPath
 
 
 
 
-    def setNodeBBMachineDecodeString(self, decodeString):
+    def setNodebbPicPath(self, path):
         """
-        Reads the NodeBB machine decode string from a file, validated and sets them and returns the success.
+        Validated and sets the NodeBB path to the profile pictures and returns the success.
 
-        @param      decodeString <string>
-                    The NodeBB machine decode string.
+        @param      path <string>
+                    The NodeBB path to the profile pictures.
 
         @return     True or False <boolean>
-                    True, if the NodeBB machine decode string has been read, set and validated. Otherwise False.
+                    True, if the NodeBB profile pictures path is validated and stored. Otherwise False.
         """
 
-        if (True if (type(decodeString) == str and self.__checkInput(decodeString, 'decodeString')) else False):
-                try:
-                    with open(decodeString, 'r') as decodeStringFile:
-                        self.__nodeBBMachineDecodeString = decodeStringFile.read().replace('\n', '')
-                    return True
-                except IOError:
-                    return False
+        if (True if (type(path) == str and self.__checkInput(path, 'path')) else False):
+            self.__nodebbPicPath = path
+            return True
         else:
             return False
 
 
 
 
-    def getVanillaMachineIP(self):
+    def getVanillaIP(self):
         """
-        Returns the Vanilla machine IP4-Address or 'localhost'.
+        Returns the Vanilla IP4-Address or 'localhost'.
 
-        @return     vanillaMachineIP <string>
-                    The Vanilla machine IP4-Address or 'localhost'.
+        @return     vanillaIP <string>
+                    The Vanilla IP4-Address or 'localhost'.
         """
 
-        return self.__vanillaMachineIP
+        return self.__vanillaIP
 
 
 
 
-    def setVanillaMachineIP(self, ip):
+    def setVanillaIP(self, ip):
         """
-        Validated and sets the Vanilla machine IP4-Address or 'localhost' and returns the success.
+        Validated and sets the Vanilla IP4-Address or 'localhost' and returns the success.
 
         @param      ip <string>
-                    The Vanilla machine IP4-Address or 'localhost'.
+                    The Vanilla IP4-Address or 'localhost'.
 
         @return     True or False <boolean>
-                    True, if the Vanilla machine IP4-Address or 'localhost' is validated and stored. Otherwise False.
+                    True, if the Vanilla IP4-Address or 'localhost' is validated and stored. Otherwise False.
         """
 
         if (True if (type(ip) == str and self.__checkInput(ip, 'ip')) else False):
-            self.__vanillaMachineIP = ip
+            self.__vanillaIP = ip
             return True
         else:
             return False
@@ -259,32 +256,32 @@ class Settings:
 
 
 
-    def getVanillaMachineUser(self):
+    def getVanillaUser(self):
         """
-        Returns the Vanilla machine username.
+        Returns the Vanilla SSH username.
 
-        @return     vanillaMachineUser <string>
-                    The Vanilla machine username.
+        @return     vanillaUser <string>
+                    The Vanilla SSH username.
         """
 
-        return self.__vanillaMachineUser
+        return self.__vanillaUser
 
 
 
 
-    def setVanillaMachineUser(self, user):
+    def setVanillaUser(self, user):
         """
-        Validated and sets the Vanilla machine username and returns the success.
+        Validated and sets the Vanilla SSH username and returns the success.
 
         @param      user <string>
-                    The Vanilla machine username.
+                    The Vanilla SSH username.
 
         @return     True or False <boolean>
-                    True, if the Vanilla machine username is validated and stored. Otherwise False.
+                    True, if the Vanilla SSH username is validated and stored. Otherwise False.
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
-            self.__vanillaMachineUser = user
+            self.__vanillaUser = user
             return True
         else:
             return False
@@ -292,32 +289,32 @@ class Settings:
 
 
 
-    def getVanillaMachinePassword(self):
+    def getVanillaPassword(self):
         """
-        Returns the Vanilla machine password.
+        Returns the Vanilla SSH password.
 
-        @return     vanillaMachinePassword <string>
-                    The Vanilla machine password.
+        @return     vanillaPassword <string>
+                    The Vanilla SSH password.
         """
 
-        return self.__vanillaMachinePassword
+        return self.__vanillaPassword
 
 
 
 
-    def setVanillaMachinePassword(self, password):
+    def setVanillaPassword(self, password):
         """
-        Validated and sets the Vanilla machine password and returns the success.
+        Validated and sets the Vanilla SSH password and returns the success.
 
         @param      password <string>
-                    The Vanilla machine password.
+                    The Vanilla SSH password.
 
         @return     True or False <boolean>
-                    True, if the Vanilla machine password is validated and stored. Otherwise False.
+                    True, if the Vanilla SSH password is validated and stored. Otherwise False.
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.__vanillaMachinePassword = password
+            self.__vanillaPassword = password
             return True
         else:
             return False
@@ -325,57 +322,20 @@ class Settings:
 
 
 
-    def getVanillaMachineDecodeString(self):
+    def getRedisIP(self):
         """
-        Returns the Vanilla machine decode string.
+        Returns the Redis IP4-Address or 'localhost'.
 
-        @return     vanillaMachineDecodeString <string>
-                    The Vanilla machine decode string.
-        """
-
-        return self.__vanillaMachineDecodeString
-
-
-
-
-    def setVanillaMachineDecodeString(self, decodeString):
-        """
-        Reads the Vanilla machine decode string from a file, validated and sets them and returns the success.
-
-        @param      decodeString <string>
-                    The Vanilla machine decode string.
-
-        @return     True or False <boolean>
-                    True, if the Vanilla machine decode string has been read, set and validated. Otherwise False.
+        @return     redisIP <string>
+                    The Redis IP4-Address or 'localhost'.
         """
 
-        if (True if (type(decodeString) == str and self.__checkInput(decodeString, 'decodeString')) else False):
-            try:
-                with open(decodeString, 'r') as decodeStringFile:
-                    self.__vanillaMachineDecodeString = decodeStringFile.read().replace('\n', '')
-                return True
-            except IOError:
-                return False
-        else:
-            return False
+        return self.__redisIP
 
 
 
 
-    def getRedisHost(self):
-        """
-        Returns the Redis database IP4-Address or 'localhost'.
-
-        @return     redisHost <string>
-                    The Redis database IP4-Address or 'localhost'.
-        """
-
-        return self.__redisHost
-
-
-
-
-    def setRedisHost(self, host):
+    def setRedisIP(self, host):
         """
         Validated and sets the Redis IP4-Address or 'localhost' and returns the success.
 
@@ -387,7 +347,7 @@ class Settings:
         """
 
         if (True if (type(host) == str and self.__checkInput(host, 'ip')) else False):
-            self.__redisHost = host
+            self.__redisIP = host
             return True
         else:
             return False
@@ -494,19 +454,19 @@ class Settings:
 
 
 
-    def getMySqlHost(self):
+    def getMySqlIP(self):
         """
         Returns the MySql IP4-Address or 'localhost'.
 
-        @return     mySqlHost <string>
+        @return     mySqlIP <string>
                     The MySql IP4-Address or 'localhost'
         """
-        return self.__mySqlHost
+        return self.__mySqlIP
 
 
 
 
-    def setMySqlHost(self, host):
+    def setMySqlIP(self, host):
         """
         Validated and sets the MySql IP4-Address or 'localhost' and returns the success.
 
@@ -518,7 +478,7 @@ class Settings:
         """
 
         if (True if (type(host) == str and self.__checkInput(host, 'ip')) else False):
-            self.__mySqlHost = host
+            self.__mySqlIP = host
             return True
         else:
             return False

@@ -3,8 +3,10 @@ Author:             Michael Rong
                     <miro@electronic.works>
                     www.electronic.works
 
-Creation Date:      2016-03-09
+Creation Date:      2016-04-03
+
 Copyright:          (c) 2016 Linux statt Windows
+                    https://linux-statt-windows.org
 """
 
 
@@ -14,10 +16,7 @@ import re
 class Settings:
     """
     Reads, validated and sets various parameters, which are initialized by the
-    class 'UserInteractions' in order to provide the classes 'DBConnectors',
-    'MachineConnectors' and 'DataContainer'.
-
-    @see    UserInteractions, DBConnectors, MachineConnectors and DataContainer
+    class 'UserInteractions' in order to provide various classes.
     """
 
 
@@ -38,16 +37,18 @@ class Settings:
         self.__vanillaIP                  = None
         self.__vanillaUser                = None
         self.__vanillaPassword            = None
+        self.__vanillaPicPath             = None
         self.__redisIP                    = None
-        self.__redisPort                  = None
-        self.__redisDB                    = None
+        self.__redisUser                  = None
         self.__redisPassword              = None
-        self.__redisPath                  = None
+        self.__redisDB                    = None
+        self.__redisDbPassword            = None
         self.__mySqlIP                    = None
-        self.__mySqlPort                  = None
-        self.__mySqlDataBase              = None
         self.__mySqlUser                  = None
         self.__mySqlPassword              = None
+        self.__mySqlDbName                = None
+        self.__mySqlDbUser                = None
+        self.__mySqlDbPassword            = None
 
 
 
@@ -59,13 +60,13 @@ class Settings:
         @param      var <string or integer>
                     The parameter to be validated.
                     Either a string or a integer can be used, depending on the relationship with 'checkType'.
-                    It applies the following relation: 'ip'<string>, 'user'<string>, 'password'<string>,
-                    'picPath'<string>, 'port'<integer>, 'db'<integer>, 'dataBase'<string>
+                    It applies the following relations: 'ip'<string>, 'user'<string>, 'password'<string>,
+                    'picPath'<string>, 'db'<integer>, 'dataBase'<string>
 
         @param      checkType <string>
                     Type of the parameter to be validated.
-                    Allowed parameters are: 'ip', 'user', 'password', 'picPath', 'port', 'db' and 'dataBase'
-                    Note the relationship to 'var'.
+                    Allowed parameters are: 'ip', 'user', 'password', 'picPath', 'db' and 'dataBase'
+                    Note the relationship to param 'var'.
 
         @return     True or False <boolean>
                     True, if 'var' is valid. Otherwise False.
@@ -79,8 +80,6 @@ class Settings:
             return (True if (len(var) <= 128) else False)
         elif (checkType == 'picPath'):
             return (True if (re.compile("^(/[A-Za-z.][^/ ]*)+[/]").match(var)) else False)
-        elif (checkType == 'port'):
-            return (True if (var > 0 and var <= 65535) else False)
         elif (checkType == 'db'):
             return (True if (var >= 0 and var < 100) else False)
         elif (checkType == 'dataBase'):
@@ -126,10 +125,10 @@ class Settings:
 
     def getNodebbUser(self):
         """
-        Returns the NodeBB SSH username.
+        Returns the NodeBB SSH user name.
 
         @return     nodebbUser <string>
-                    The NodeBB SSH username.
+                    The NodeBB SSH user name.
         """
 
         return self.__nodebbUser
@@ -139,13 +138,13 @@ class Settings:
 
     def setNodebbUser(self, user):
         """
-        Validated and sets the NodeBB SSH username and returns the success.
+        Validated and sets the NodeBB SSH user name and returns the success.
 
         @param      user <string>
                     The NodeBB SSH username.
 
         @return     True or False <boolean>
-                    True, if the NodeBB SSH username is validated and stored. Otherwise False.
+                    True, if the NodeBB SSH user name is validated and stored. Otherwise False.
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
@@ -190,7 +189,7 @@ class Settings:
 
 
 
-    def getNodebbPicPath(self, path):
+    def getNodebbPicPath(self):
         """
         Returns the NodeBB path to the profile pictures.
 
@@ -258,10 +257,10 @@ class Settings:
 
     def getVanillaUser(self):
         """
-        Returns the Vanilla SSH username.
+        Returns the Vanilla SSH user name.
 
         @return     vanillaUser <string>
-                    The Vanilla SSH username.
+                    The Vanilla SSH user name.
         """
 
         return self.__vanillaUser
@@ -271,13 +270,13 @@ class Settings:
 
     def setVanillaUser(self, user):
         """
-        Validated and sets the Vanilla SSH username and returns the success.
+        Validated and sets the Vanilla SSH user name and returns the success.
 
         @param      user <string>
-                    The Vanilla SSH username.
+                    The Vanilla SSH user name.
 
         @return     True or False <boolean>
-                    True, if the Vanilla SSH username is validated and stored. Otherwise False.
+                    True, if the Vanilla SSH user name is validated and stored. Otherwise False.
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
@@ -322,6 +321,39 @@ class Settings:
 
 
 
+    def getVanillaPicPath(self):
+        """
+        Returns the Vanilla path to the profile pictures.
+
+        @return     vanillaPicPath <string>
+                    The Vanilla path to the profile pictures.
+        """
+
+        return self.__vanillaPicPath
+
+
+
+
+    def setVanillaPicPath(self, path):
+        """
+        Validated and sets the Vanilla path to the profile pictures and returns the success.
+
+        @param      path <string>
+                    The Vanilla path to the profile pictures.
+
+        @return     True or False <boolean>
+                    True, if the Vanilla profile pictures path is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(path) == str and self.__checkInput(path, 'path')) else False):
+            self.__vanillaPicPath = path
+            return True
+        else:
+            return False
+
+
+
+
     def getRedisIP(self):
         """
         Returns the Redis IP4-Address or 'localhost'.
@@ -355,32 +387,65 @@ class Settings:
 
 
 
-    def getRedisPort(self):
+    def getRedisUser(self):
         """
-        Returns the Redis port number.
+        Returns the Redis SSH user name.
 
-        @return     redisPort <integer>
-                    The Redis port number.
+        @return     redisUser <string>
+                    The Redis SSH user name.
         """
 
-        return self.__redisPort
+        return self.__redisUser
 
 
 
 
-    def setRedisPort(self, port):
+    def setRedisUser(self, user):
         """
-        Validated and sets the Redis port number and returns the success.
+        Validated and sets the Redis SSH user name and returns the success.
 
-        @param      port <integer>
-                    The Redis port number.
+        @param      user <string>
+                    The Redis SSH user name.
 
         @return     True or False <boolean>
-                    True, if the Redis port number is validated and stored. Otherwise False.
+                    True, if the Redis SSH user name is validated and stored. Otherwise False.
         """
 
-        if (True if (type(port) == int and self.__checkInput(port, 'port')) else False):
-            self.__redisPort = port
+        if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
+            self.__redisUser = user
+            return True
+        else:
+            return False
+
+
+
+
+    def getRedisPassword(self):
+        """
+        Returns the Redis SSH password.
+
+        @return     redisPassword <string>
+                    The Redis SSH password.
+        """
+
+        return self.__redisPassword
+
+
+
+
+    def setRedisPassword(self, password):
+        """
+        Validated and sets the Redis SSH password and returns the success.
+
+        @param      password <string>
+                    The Redis SSH password.
+
+        @return     True or False <boolean>
+                    True, if the Redis SSH password is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
+            self.__redisPassword = password
             return True
         else:
             return False
@@ -421,32 +486,32 @@ class Settings:
 
 
 
-    def getRedisPassword(self):
+    def getRedisDbPassword(self):
         """
-        Returns the Redis password.
+        Returns the Redis database password.
 
-        @return     redisPassword <string>
-                    The Redis password.
+        @return     redisDbPassword <string>
+                    The Redis database password.
         """
 
-        return self.__redisPassword
+        return self.__redisDbPassword
 
 
 
 
     def setRedisPassword(self, password):
         """
-        Validated and sets the Redis password and returns the success.
+        Validated and sets the Redis database password and returns the success.
 
         @param      password <string>
-                    The Redis password.
+                    The Redis database password.
 
         @return     True or False <boolean>
-                    True, if the Redis password is validated and stored. Otherwise False.
+                    True, if the Redis database password is validated and stored. Otherwise False.
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-            self.__redisPassword = password
+            self.__redisDbPassword = password
             return True
         else:
             return False
@@ -486,77 +551,12 @@ class Settings:
 
 
 
-    def getMySqlPort(self):
-        """
-        Returns the MySql port number.
-
-        @return     mySqlPort <integer>
-                    The MySql port number.
-        """
-
-        return self.__mySqlPort
-
-
-
-
-    def setMySqlPort(self, port):
-        """
-        Validated and sets the MySql port number and returns the success.
-
-        @param      mySqlPort <integer>
-                    The MySql port number.
-
-        @return     True or False <boolean>
-                    True, if the MySql port number is validated and stored. Otherwise False.
-        """
-
-        if (True if (type(port) == int and self.__checkInput(port, 'port')) else False):
-            self.__mySqlPort = port
-            return True
-        else:
-            return False
-
-
-
-
-    def getMySqlDataBase(self):
-        """
-        Returns the MySql database name.
-
-        @return     mySqlDataBase <string>
-                    The MySql database name.
-        """
-        return self.__mySqlDataBase
-
-
-
-
-    def setMySqlDataBase(self, dataBase):
-        """
-        Validated and sets the MySql database name and returns the success.
-
-        @param      dataBase <string>
-                    The MySql database name.
-
-        @return     True or False <boolean>
-                    True, if the MySql database name is validated and stored. Otherwise False.
-        """
-
-        if (True if (type(dataBase) == str and self.__checkInput(dataBase, 'dataBase')) else False):
-            self.__mySqlDataBase = dataBase
-            return True
-        else:
-            return False
-
-
-
-
     def getMySqlUser(self):
         """
-        Returns the MySql username.
+        Returns the MySql SSH user name.
 
         @return     mySqlUser <string>
-                    The MySql username.
+                    The MySql SSH user name.
         """
 
         return self.__mySqlUser
@@ -566,13 +566,13 @@ class Settings:
 
     def setMySqlUser(self, user):
         """
-        Validated and sets the MySql username and returns the success.
+        Validated and sets the MySql SSH user name and returns the success.
 
         @param      user <string>
-                    The MySql username.
+                    The MySql SSH user name.
 
         @return     True or False <boolean>
-                    True, if the MySql username is validated and stored. Otherwise False.
+                    True, if the MySql SSH user name is validated and stored. Otherwise False.
         """
 
         if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
@@ -586,10 +586,10 @@ class Settings:
 
     def getMySqlPassword(self):
         """
-        Returns the MySql password.
+        Returns the MySql SSH password.
 
         @return     mySqlPassword <string>
-                    The MySql password.
+                    The MySql SSH password.
         """
 
         return self.__mySqlPassword
@@ -599,13 +599,13 @@ class Settings:
 
     def setMySqlPassword(self, password):
         """
-        Validated and sets the MySql password and returns the success.
+        Validated and sets the MySql SSH password and returns the success.
 
         @param      password <string>
-                    The MySql password.
+                    The MySql SSH password.
 
         @return     True or False <boolean>
-                    True, if the MySql password is validated and stored. Otherwise False.
+                    True, if the MySql SSH password is validated and stored. Otherwise False.
         """
 
         if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
@@ -613,3 +613,101 @@ class Settings:
             return True
         else:
             return False
+
+
+
+
+    def getMySqlDbName(self):
+        """
+        Returns the MySql database name.
+
+        @return     mySqlDbName <string>
+                    The MySql database name.
+        """
+        return self.__mySqlDbName
+
+
+
+
+    def setMySqlDbName(self, dataBase):
+        """
+        Validated and sets the MySql database name and returns the success.
+
+        @param      dataBase <string>
+                    The MySql database name.
+
+        @return     True or False <boolean>
+                    True, if the MySql database name is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(dataBase) == str and self.__checkInput(dataBase, 'dataBase')) else False):
+            self.__mySqlDbName = dataBase
+            return True
+        else:
+            return False
+
+
+
+
+    def getMySqlDbUser(self):
+        """
+        Returns the MySql database user name.
+
+        @return     mySqlDbUser <string>
+                    The MySql database user name.
+        """
+
+        return self.__mySqlDbUser
+
+
+
+
+    def setMySqlDbUser(self, user):
+        """
+        Validated and sets the MySql database user name and returns the success.
+
+        @param      user <string>
+                    The MySql database user name.
+
+        @return     True or False <boolean>
+                    True, if the MySql database user name is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(user) == str and self.__checkInput(user, 'user')) else False):
+            self.__mySqlDbUser = user
+            return True
+        else:
+            return False
+
+
+
+
+    def getMySqlDbPassword(self):
+        """
+        Returns the MySql database password.
+
+        @return     mySqlDbPassword <string>
+                    The MySql database password.
+        """
+
+        return self.__mySqlDbPassword
+
+
+
+
+    def setMySqlDbPassword(self, password):
+        """
+        Validated and sets the MySql database password and returns the success.
+
+        @param      password <string>
+                    The MySql database password.
+
+        @return     True or False <boolean>
+                    True, if the MySql database password is validated and stored. Otherwise False.
+        """
+
+    if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
+        self.__mySqlDbPassword = password
+        return True
+    else:
+        return False

@@ -12,3 +12,8 @@ It doesn't work currently !!!
 
 * [Python 2.7](https://www.python.org/)
 * [Paramiko](https://github.com/paramiko/paramiko)
+
+
+## Note of thanks
+
+Thanks to **James Bardin** for his great paramiko [scp module](https://github.com/jbardin/scp.py).  

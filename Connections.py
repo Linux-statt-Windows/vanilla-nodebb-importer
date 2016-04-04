@@ -55,8 +55,8 @@ class Connections:
         try:
             sshClient.connect(host, username=user, password=pw)
         except paramiko.SSHException:
-            print("Connection Error !!!")
-            print("Something is going wrong during the SSH connection.")
+            print("\033[31mConnection Error !!!")
+            print("Something is going wrong during the SSH connection.\033[0m\n")
             sys.exit(1)
 
         return sshClient

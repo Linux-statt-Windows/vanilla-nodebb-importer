@@ -41,11 +41,13 @@ class Settings:
         self.__redisIP                    = None
         self.__redisUser                  = None
         self.__redisPassword              = None
+        self.__redisPort                  = None
         self.__redisDB                    = None
         self.__redisDbPassword            = None
         self.__mySqlIP                    = None
         self.__mySqlUser                  = None
         self.__mySqlPassword              = None
+        self.__mySqlPort                  = None
         self.__mySqlDbName                = None
         self.__mySqlDbUser                = None
         self.__mySqlDbPassword            = None
@@ -57,16 +59,12 @@ class Settings:
         """
         Private method to validate setter parameters before they further processed or stored and returns the validation status.
 
-        @param      var <string or integer>
+        @param      var <string>
                     The parameter to be validated.
-                    Either a string or a integer can be used, depending on the relationship with 'checkType'.
-                    It applies the following relations: 'ip'<string>, 'user'<string>, 'password'<string>,
-                    'picPath'<string>, 'db'<integer>, 'dataBase'<string>
 
         @param      checkType <string>
                     Type of the parameter to be validated.
-                    Allowed parameters are: 'ip', 'user', 'password', 'picPath', 'db' and 'dataBase'
-                    Note the relationship to param 'var'.
+                    Allowed parameters are: 'ip', 'port', 'user', 'password', 'path', 'db' and 'dataBase'
 
         @return     True or False <boolean>
                     True, if 'var' is valid. Otherwise False.
@@ -78,12 +76,14 @@ class Settings:
             return (True if (len(var) <= 20 and re.compile("[A-Za-z]").match(var)) else False)
         elif (checkType == 'password'):
             return (True if (len(var) <= 128) else False)
-        elif (checkType == 'picPath'):
-            return (True if (re.compile("^(/[A-Za-z.][^/ ]*)+[/]").match(var)) else False)
+        elif (checkType == 'path'):
+            return (True if (re.compile("^/(.*)/$").match(var)) else False)
         elif (checkType == 'db'):
-            return (True if (var >= 0 and var < 100) else False)
-        elif (checkType == 'dataBase'):
-            return (True if (len(var) <= 20 and re.compile("[A-Za-z]").match(var)) else False)
+            return (True if (re.compile("^[0-9][0-9]?$|^100$").match(var)) else False)
+        elif (checkType == 'database'):
+            return (True if (len(var) <= 25 and re.compile("[A-Za-z]").match(var)) else False)
+        elif (checkType == 'port'):
+            return (True if (re.compile("^0*(?:6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5][0-9]{4}|[1-9][0-9]{1,3}|[0-9])$").match(var)) else False)
         else:
             return False
 
@@ -453,6 +453,39 @@ class Settings:
 
 
 
+    def getRedisPort(self):
+        """
+        Returns the Redis port number.
+
+        @return     redisPort <integer>
+                    The Redis port number.
+        """
+
+        return self.__redisPort
+
+
+
+
+    def setRedisPort(self, port):
+        """
+        Validated and sets the Redis port number and returns the success.
+
+        @param      port <integer>
+                    The Redis port number.
+
+        @return     True or False <boolean>
+                    True, if the Redis port number is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(port) == str and self.__checkInput(port, 'port')) else False):
+            self.__redisPort = port
+            return True
+        else:
+            return False
+
+
+
+
     def getRedisDB(self):
         """
         Returns the Redis database number.
@@ -477,7 +510,7 @@ class Settings:
                     True, if the Redis database number is validated and stored. Otherwise False.
         """
 
-        if (True if (type(db) == int and self.__checkInput(db, 'db')) else False):
+        if (True if (type(db) == str and self.__checkInput(db, 'db')) else False):
             self.__redisDB = db
             return True
         else:
@@ -499,7 +532,7 @@ class Settings:
 
 
 
-    def setRedisPassword(self, password):
+    def setRedisDbPassword(self, password):
         """
         Validated and sets the Redis database password and returns the success.
 
@@ -617,6 +650,39 @@ class Settings:
 
 
 
+    def getMySqlPort(self):
+        """
+        Returns the MySQL port number.
+
+        @return     mySqlPort <integer>
+                    The MySQL port number.
+        """
+
+        return self.__mySqlPort
+
+
+
+
+    def setMySqlPort(self, port):
+        """
+        Validated and sets the MySQL port number and returns the success.
+
+        @param      port <integer>
+                    The MySQL port number.
+
+        @return     True or False <boolean>
+                    True, if the MySQL port number is validated and stored. Otherwise False.
+        """
+
+        if (True if (type(port) == str and self.__checkInput(port, 'port')) else False):
+            self.__mySqlPort = port
+            return True
+        else:
+            return False
+
+
+
+
     def getMySqlDbName(self):
         """
         Returns the MySql database name.
@@ -640,7 +706,7 @@ class Settings:
                     True, if the MySql database name is validated and stored. Otherwise False.
         """
 
-        if (True if (type(dataBase) == str and self.__checkInput(dataBase, 'dataBase')) else False):
+        if (True if (type(dataBase) == str and self.__checkInput(dataBase, 'database')) else False):
             self.__mySqlDbName = dataBase
             return True
         else:
@@ -706,8 +772,8 @@ class Settings:
                     True, if the MySql database password is validated and stored. Otherwise False.
         """
 
-    if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
-        self.__mySqlDbPassword = password
-        return True
-    else:
-        return False
+        if (True if (type(password) == str and self.__checkInput(password, 'password')) else False):
+            self.__mySqlDbPassword = password
+            return True
+        else:
+            return False

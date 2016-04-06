@@ -356,7 +356,8 @@ class UserInteractions:
             print("The information is required to connect your MySQL machine via SSH.\n")
         # MySQL SSH user
         elif (screen == 'screen17'):
-            print("Please enter the \033[1mSSH user name\The screen of the user interaction.
+            print("Please enter the \033[1mSSH user name\033[21m of your MySQL machine!")
+            print("The information is required to connect your MySQL machine via SSH.\n")
         elif (screen == 'screen18'):
             print("Please enter the \033[1mSSH password\033[21m of your MySQL machine!")
             print("The information is required to connect your MySQL machine via SSH.")

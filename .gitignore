@@ -1,4 +1,6 @@
 *.pyc
 .imdone
+.idea/
+.iml
 tmp/
 *~

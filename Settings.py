@@ -16,6 +16,10 @@ import sys
 
 
 class Settings:
+    """
+    Validated and initialized data from settings.conf and provides some getter-methods.
+    """
+
 
     __sharedState = {}
 
@@ -46,71 +50,275 @@ class Settings:
         self.__mysqlDBName         = None
 
 
+
+
     def getNodebbSSHHost(self):
+        """
+        Returned the NodeBB SSH hostname.
+
+        @return     __nodebbSSHHost <ip address as string>
+        """
+
         return self.__nodebbSSHHost
 
+
+
+
     def getNodebbSSHUsername(self):
+        """
+        Returned the NodeBB SSH username.
+
+        @return     __nodebbSSHUsername <string>
+        """
+
         return self.__nodebbSSHUsername
 
+
+
+
     def getNodebbSSHPassword(self):
+        """
+        Returned the NodeBB SSH password.
+
+        @retrun     __nodebbSSHPassword <string>
+        """
+
         return self.__nodebbSSHPassword
 
+
+
+
     def getNodebbPicPath(self):
+        """
+        Returned the path where NodeBB stored pictures.
+
+        @return     __nodebbPicPath <string>
+        """
+
         return self.__nodebbPicPath
 
+
+
+
     def getRedisSSHHost(self):
+        """
+        Returned the Redis SSH hostname.
+
+        @return     __redisSSHHost <ip address as string>
+        """
+
         return self.__redisSSHHost
 
+
+
+
     def getRedisSSHUsername(self):
+        """
+        Returned the Redis SSH username.
+
+        @return     __redisSSHUsername <string>
+        """
+
         return self.__redisSSHUsername
 
+
+
+
     def getRedisSSHPassword(self):
+        """
+        Returned the Redis SSH password.
+
+        @return     __redisSSHPassword <string>
+        """
+
         return self.__redisSSHPassword
 
+
+
+
     def getRedisDBNumber(self):
+        """
+        Returned the Redis database number.
+
+        @return     __redisDBNumber <string>
+        """
+
         return self.__redisDBNumber
 
+
+
+
     def getRedisDBPassword(self):
+        """
+        Returned the Redis database password.
+
+        @return     __redisDBPassword <string>
+        """
+
         return self.__redisDBPassword
 
+
+
+
     def getVanillaSSHHost(self):
+        """
+        Returned the Vanilla SSH hostname.
+
+        @return     __vanillaSSHHost <ip address as string>
+        """
+
         return self.__vanillaSSHHost
 
+
+
+
     def getVanillaSSHUsername(self):
+        """
+        Returned the Vanilla SSH username.
+
+        @return     __vanillaSSHUsername <string>
+        """
+
         return self.__vanillaSSHUsername
 
+
+
+
     def getVanillaSSHPassword(self):
+        """
+        Returned the Vanilla SSH password.
+
+        @return     __vanillaSSHPassword <string>
+        """
+
         return self.__vanillaSSHPassword
 
+
+
+
     def getVanillaPicPath(self):
+        """
+        Returned the path where Vanilla stored pictures.
+
+        @return     __vanillaPicPath <string>
+        """
+
         return self.__vanillaPicPath
 
+
+
+
     def getMysqlSSHHost(self):
+        """
+        Returned the MySQL SSH hostname.
+
+        @return     __mysqlSSHHost <ip address as string>
+        """
+
         return self.__mysqlSSHHost
 
+
+
+
     def getMysqlSSHUsername(self):
+        """
+        Returned the MySQL SSH username.
+
+        @return     __mysqlSSHUsername <string>
+        """
+
         return self.__mysqlSSHUsername
 
+
+
+
     def getMysqlSSHPassword(self):
+        """
+        Returned the MySQL SSH password.
+
+        @return     __mysqlSSHPassword <string>
+        """
+
         return self.__mysqlSSHPassword
 
+
+
+
     def getMysqlLocalUsername(self):
+        """
+        Returned the MySQL database username of your local machine.
+
+        @return     __mysqlLocalUsername <string>
+        """
+
         return self.__mysqlLocalUsername
 
+
+
+
     def getMysqlLocalPassword(self):
+        """
+        Returned the MySQL database password of your local machine.
+
+        @return     __mysqlLocalPassword <string>
+        """
+
         return self.__mysqlLocalPassword
 
+
+
+
     def getMysqlRemoteUsername(self):
+        """
+        Returned the MySQL database username of your remote machine.
+
+        @return     __mysqlRemoteUsername <string>
+        """
+
         return self.__mysqlRemoteUsername
 
+
+
+
     def getMysqlRemotePassword(self):
+        """
+        Returned the MySQL database password of your remote machine.
+
+        @return     __mysqlRemotePassword <string>
+        """
+
         return self.__mysqlRemotePassword
 
+
+
+
     def getMysqlDBName(self):
+        """
+        Returned the MySQL database name.
+        The local and remote database name must be the same.
+
+        @return     __mysqlDBName <string>
+        """
+
         return self.__mysqlDBName
 
 
+
+
     def __checkInput(self, var, checkType):
+        """
+        Validated the settings in 'settings.conf'.
+
+        @param      var <string>
+                    The setting parameter.
+
+        @param      checkType <string>
+                    The type of parameter. Allowed values are ip, user, password, path, db, database and port.
+
+        @return     True or False <boolean>
+                    True, if the paramater ist valid. Otherwise false.
+        """
+
         if (checkType == 'ip'):
             return (True if ((var == 'localhost' or re.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$").match(var))) else False)
         elif (checkType == 'user'):
@@ -129,7 +337,14 @@ class Settings:
             return False
 
 
+
+
     def initSettings(self):
+        """
+        Read and set the setting parameters from settings.conf and called the validation function.
+        Throws an exception, if any parameter can't be validated.
+        """
+
         try:
             config = ConfigParser.RawConfigParser()
             config.read('config/settings.conf')

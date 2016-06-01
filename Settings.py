@@ -54,7 +54,7 @@ class Settings:
 
     def getNodebbSSHHost(self):
         """
-        Returned the NodeBB SSH hostname.
+        Returns the NodeBB SSH hostname.
 
         @return     __nodebbSSHHost <ip address as string>
         """
@@ -66,7 +66,7 @@ class Settings:
 
     def getNodebbSSHUsername(self):
         """
-        Returned the NodeBB SSH username.
+        Returns the NodeBB SSH username.
 
         @return     __nodebbSSHUsername <string>
         """
@@ -78,7 +78,7 @@ class Settings:
 
     def getNodebbSSHPassword(self):
         """
-        Returned the NodeBB SSH password.
+        Returns the NodeBB SSH password.
 
         @retrun     __nodebbSSHPassword <string>
         """
@@ -90,7 +90,7 @@ class Settings:
 
     def getNodebbPicPath(self):
         """
-        Returned the path where NodeBB stored pictures.
+        Returns the path where NodeBB stores pictures.
 
         @return     __nodebbPicPath <string>
         """
@@ -102,7 +102,7 @@ class Settings:
 
     def getRedisSSHHost(self):
         """
-        Returned the Redis SSH hostname.
+        Returns the Redis SSH hostname.
 
         @return     __redisSSHHost <ip address as string>
         """
@@ -114,7 +114,7 @@ class Settings:
 
     def getRedisSSHUsername(self):
         """
-        Returned the Redis SSH username.
+        Returns the Redis SSH username.
 
         @return     __redisSSHUsername <string>
         """
@@ -126,7 +126,7 @@ class Settings:
 
     def getRedisSSHPassword(self):
         """
-        Returned the Redis SSH password.
+        Returns the Redis SSH password.
 
         @return     __redisSSHPassword <string>
         """
@@ -138,7 +138,7 @@ class Settings:
 
     def getRedisDBNumber(self):
         """
-        Returned the Redis database number.
+        Returns the Redis database number.
 
         @return     __redisDBNumber <string>
         """
@@ -150,7 +150,7 @@ class Settings:
 
     def getRedisDBPassword(self):
         """
-        Returned the Redis database password.
+        Returns the Redis database password.
 
         @return     __redisDBPassword <string>
         """
@@ -162,7 +162,7 @@ class Settings:
 
     def getVanillaSSHHost(self):
         """
-        Returned the Vanilla SSH hostname.
+        Returns the Vanilla SSH hostname.
 
         @return     __vanillaSSHHost <ip address as string>
         """
@@ -174,7 +174,7 @@ class Settings:
 
     def getVanillaSSHUsername(self):
         """
-        Returned the Vanilla SSH username.
+        Returns the Vanilla SSH username.
 
         @return     __vanillaSSHUsername <string>
         """
@@ -186,7 +186,7 @@ class Settings:
 
     def getVanillaSSHPassword(self):
         """
-        Returned the Vanilla SSH password.
+        Returns the Vanilla SSH password.
 
         @return     __vanillaSSHPassword <string>
         """
@@ -198,7 +198,7 @@ class Settings:
 
     def getVanillaPicPath(self):
         """
-        Returned the path where Vanilla stored pictures.
+        Returns the path where Vanilla stores pictures.
 
         @return     __vanillaPicPath <string>
         """
@@ -210,7 +210,7 @@ class Settings:
 
     def getMysqlSSHHost(self):
         """
-        Returned the MySQL SSH hostname.
+        Returns the MySQL SSH hostname.
 
         @return     __mysqlSSHHost <ip address as string>
         """
@@ -222,7 +222,7 @@ class Settings:
 
     def getMysqlSSHUsername(self):
         """
-        Returned the MySQL SSH username.
+        Returns the MySQL SSH username.
 
         @return     __mysqlSSHUsername <string>
         """
@@ -234,7 +234,7 @@ class Settings:
 
     def getMysqlSSHPassword(self):
         """
-        Returned the MySQL SSH password.
+        Returns the MySQL SSH password.
 
         @return     __mysqlSSHPassword <string>
         """
@@ -246,7 +246,7 @@ class Settings:
 
     def getMysqlLocalUsername(self):
         """
-        Returned the MySQL database username of your local machine.
+        Returns the MySQL database username of your local machine.
 
         @return     __mysqlLocalUsername <string>
         """
@@ -258,7 +258,7 @@ class Settings:
 
     def getMysqlLocalPassword(self):
         """
-        Returned the MySQL database password of your local machine.
+        Returns the MySQL database password of your local machine.
 
         @return     __mysqlLocalPassword <string>
         """
@@ -270,7 +270,7 @@ class Settings:
 
     def getMysqlRemoteUsername(self):
         """
-        Returned the MySQL database username of your remote machine.
+        Returns the MySQL database username of your remote machine.
 
         @return     __mysqlRemoteUsername <string>
         """
@@ -282,7 +282,7 @@ class Settings:
 
     def getMysqlRemotePassword(self):
         """
-        Returned the MySQL database password of your remote machine.
+        Returns the MySQL database password of your remote machine.
 
         @return     __mysqlRemotePassword <string>
         """
@@ -294,7 +294,7 @@ class Settings:
 
     def getMysqlDBName(self):
         """
-        Returned the MySQL database name.
+        Returns the MySQL database name.
         The local and remote database name must be the same.
 
         @return     __mysqlDBName <string>
@@ -307,7 +307,7 @@ class Settings:
 
     def __checkInput(self, var, checkType):
         """
-        Validated the settings in 'settings.conf'.
+        Checks the settings in 'settings.conf'.
 
         @param      var <string>
                     The setting parameter.
@@ -341,8 +341,8 @@ class Settings:
 
     def initSettings(self):
         """
-        Read and set the setting parameters from settings.conf and called the validation function.
-        Throws an exception, if any parameter can't be validated.
+        Reads and sets the setup parameters of settings.conf and invokes the validation function.
+        Raises an exception if one of the parameters can not be validated.
         """
 
         try:
@@ -373,107 +373,107 @@ class Settings:
 
             if (self.__checkInput(self.__nodebbSSHHost, 'ip') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The IP-Address of your NodeBB instance could not be validated."
+                print "The IP-Address of your NodeBB instance can not be validated."
                 print "See section 'NodeBB' -> 'sshHost' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__nodebbSSHUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH username of your NodeBB instance could not be validated."
+                print "The SSH username of your NodeBB instance can not be validated."
                 print "See section 'NodeBB' -> 'sshUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__nodebbSSHPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH password of your NodeBB instance could not be validated."
+                print "The SSH password of your NodeBB instance can not be validated."
                 print "See section 'NodeBB' -> 'sshPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__nodebbPicPath, 'path') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The picture path of your NodeBB instance could not be validated."
+                print "The picture path of your NodeBB instance can not be validated."
                 print "See section 'NodeBB' -> 'picPath' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__redisSSHHost, 'ip') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The IP-Address of your Redis instance could not be validated."
+                print "The IP-Address of your Redis instance can not be validated."
                 print "See section 'Redis' -> 'sshHost' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__redisSSHUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH username of your Redis instance could not be validated."
+                print "The SSH username of your Redis instance can not be validated."
                 print "See section 'Redis' -> 'sshUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__redisSSHPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH password of your Redis instance could not be validated."
+                print "The SSH password of your Redis instance can not be validated."
                 print "See section 'Redis' -> 'sshPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__redisDBNumber, 'db') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The database number of your Redis database could not be validated."
+                print "The database number of your Redis database can not be validated."
                 print "See section 'Redis' -> 'dbNumber' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__redisDBPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The password of your Redis database could not be validated."
+                print "The password of your Redis database can not be validated."
                 print "See section 'Redis' -> 'dbPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__vanillaSSHHost, 'ip') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The IP-Address of your Vanilla instance could not be validated."
+                print "The IP-Address of your Vanilla instance can not be validated."
                 print "See section 'Vanilla' -> 'sshHost' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__vanillaSSHUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH username of your Vanilla instance could not be validated."
+                print "The SSH username of your Vanilla instance can not be validated."
                 print "See section 'Vanilla' -> 'sshUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__vanillaSSHPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH password of your Vanilla instance could not be validated."
+                print "The SSH password of your Vanilla instance can not be validated."
                 print "See section 'Vanilla' -> 'sshPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__vanillaPicPath, 'path') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The picture path of your Vanilla instance could not be validated."
+                print "The picture path of your Vanilla instance can not be validated."
                 print "See section 'Vanilla' -> 'picPath' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlSSHHost, 'ip') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The IP-Address of your MySQL instance could not be validated."
+                print "The IP-Address of your MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'sshHost' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlSSHUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH username of your MySQL instance could not be validated."
+                print "The SSH username of your MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'sshUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlSSHPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The SSH password of your MySQL instance could not be validated."
+                print "The SSH password of your MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'sshPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlLocalUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The username of your local MySQL instance could not be validated."
+                print "The username of your local MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'localUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlLocalPassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The password of your local MySQL instance could not be validated."
+                print "The password of your local MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'localPassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlRemoteUsername, 'user') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The username of your remote MySQL instance could not be validated."
+                print "The username of your remote MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'remoteUsername' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlRemotePassword, 'password') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The password of your remote MySQL instance could not be validated."
+                print "The password of your remote MySQL instance can not be validated."
                 print "See section 'MySQL' -> 'remotePassword' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
             if (self.__checkInput(self.__mysqlDBName, 'database') == False):
                 print "\033[31m\nConfig Error !!!"
-                print "The database name of your MySQL database could not be validated."
+                print "The database name of your MySQL database can not be validated."
                 print "See section 'MySQL' -> 'dbName' in /config/settings.conf.\033[0m\n"
                 sys.exit(1)
 

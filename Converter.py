@@ -36,15 +36,31 @@ Copyright:          (c) 2016 Linux statt Windows
 
 
 import sys
+import os.path
+import shutil
 from Settings import *
 
 
 settings = Settings()
 
 
+
+def init(dir):
+    # Check if the directory exists. If so, delete it recursively.
+    # Create a new directory.
+    if (os.path.exists(dir)):
+        shutil.rmtree(dir)
+    os.makedirs(dir)
+
+
+
 def main():
+    # Create a tmp directory
+    init('tmp');
+
+    # Init settings
     settings.initSettings()
-    
+
 
 
 if __name__ == "__main__":
